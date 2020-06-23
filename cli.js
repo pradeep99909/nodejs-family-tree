@@ -21,6 +21,13 @@ switch (argv[0]) {
       Tree.connect(argv[1], argv[5], argv[3]);
     }
     break;
+  case "count":
+    if (argv[1] == "all") {
+    } else {
+      Tree.get_count(argv[3], argv[1], (res) => console.log(res));
+    }
+    break;
+
   default:
     console.log("Entered wrong command");
 }
