@@ -36,7 +36,7 @@ class Family_Tree {
 
       data[length] = {
         name: data[length][name],
-        relationship: relation,
+        [relation]: [],
       };
       console.log(data);
       fs.writeFileSync("data.json", JSON.stringify(data));
@@ -60,18 +60,28 @@ class Family_Tree {
     });
   }
 
+  get_count(name, relation, callback) {
+    fs.readFile("data.json", async (err, data) => {
+      if (err) {
+        console.error(err);
+      }
+      let json_data = JSON.parse(data);
+      let key = await this.get_key_by_name(name);
+      callback(json_data[key][relation.slice(0, -1)].length);
+    });
+  }
+
   connect(person1, person2, relation) {
     fs.readFile("data.json", async (err, data) => {
       if (err) {
         console.error(err);
       }
       let json_data = JSON.parse(data);
-
       var key1 = await this.get_key_by_name(person1);
       var key2 = await this.get_key_by_name(person2);
-      json_data[key1] = {
-        child: [key2],
-        relationship: relation,
+      json_data[key2] = {
+        ...json_data[key2],
+        [relation]: [key1],
       };
       fs.writeFileSync("data.json", JSON.stringify(json_data));
     });
