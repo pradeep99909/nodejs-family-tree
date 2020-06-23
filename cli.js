@@ -23,6 +23,7 @@ switch (argv[0]) {
     break;
   case "count":
     if (argv[1] == "all") {
+      Tree.get_all(argv[4], argv[2], (res) => console.log(res));
     } else {
       Tree.get_count(argv[3], argv[1], (res) => console.log(res));
     }
