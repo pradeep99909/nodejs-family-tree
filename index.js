@@ -28,6 +28,7 @@ class Family_Tree {
     const fs = require("fs");
 
     fs.readFile("data.json", (err, data) => {
+      //reading the file
       if (err) {
         return console.error(err);
       }
@@ -38,12 +39,13 @@ class Family_Tree {
       data[length] = {
         name: data[length][name],
         [relation]: [],
-      };
+      }; //adding the object to family tree
       fs.writeFileSync("data.json", JSON.stringify(data));
     });
   }
 
   get_key_by_name(name) {
+    // geting the of the person by name
     return new Promise((resolve, reject) => {
       fs.readFile("data.json", (err, data) => {
         if (err) {
@@ -104,8 +106,8 @@ class Family_Tree {
       json_data[key2] = {
         ...json_data[key2],
         [relation]: [key1],
-      };
-      fs.writeFileSync("data.json", JSON.stringify(json_data));
+      }; //connecting person in json data using key values
+      fs.writeFileSync("data.json", JSON.stringify(json_data)); // writing the data into the json file
     });
   }
 }
